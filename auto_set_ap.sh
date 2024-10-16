@@ -160,8 +160,12 @@ EOF
 edit_dnsmasq_service() {
     backup_file /lib/systemd/system/dnsmasq.service
     sed -i '/\[Unit\]/a After=network.target' /lib/systemd/system/dnsmasq.service
-    sed -i '/\[Service\]/a ExecStartPre=/bin/sleep 10' /lib/systemd/system/dnsmasq.service
+    sed -i '/\[Service\]/a ExecStartPre=/bin/sleep 15' /lib/systemd/system/dnsmasq.service
     echo "Edited dnsmasq service"
+
+    # Enable dnsmasq service to start on boot
+    systemctl enable dnsmasq.service
+    echo "Enabled dnsmasq service to start on boot"
 }
 
 # 14. Remove bind-interfaces in dnsmasq and other files
